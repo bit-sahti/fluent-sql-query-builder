@@ -1,0 +1,18 @@
+{
+  "name": "fluent-query-builder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --config jest.config.js --passWithNoTests --silent --runInBand",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules npx jest --config jest.config.js --passWithNoTests --runInBand --watch",
+    "test:cov": "NODE_OPTIONS=--experimental-vm-modules npx jest --config jest.config.js --passWithNoTests --silent --runInBand --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
+}
