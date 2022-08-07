@@ -135,8 +135,8 @@ describe('', () => {
     expect(result).toStrictEqual(expected)
   })
 
-  it('#groupCount  - should group and count results by specified field', () => {
-    const result = FluentSqlQueryBuilder.for(database).groupCount('category').build()
+  it('#countBy  - should group and count results by specified field', () => {
+    const result = FluentSqlQueryBuilder.for(database).countBy('category').build()
 
     const expected = [
       {

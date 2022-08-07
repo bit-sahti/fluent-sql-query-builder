@@ -4,7 +4,7 @@ export class FluentSqlQueryBuilder {
   #select = []
   #where = []
   #orderBy = []
-  #groupCount = ''
+  #countBy = ''
 
   constructor({ database }) {
     this.#database = database
@@ -42,8 +42,8 @@ export class FluentSqlQueryBuilder {
     return this
   }
 
-  groupCount(field) {
-    this.#groupCount = field
+  countBy(field) {
+    this.#countBy = field
 
     return this
   }
@@ -61,7 +61,7 @@ export class FluentSqlQueryBuilder {
       if (this.#limit && results.length === this.#limit) break
     }
 
-    const groupedResults = this.#performGroupCount(results)
+    const groupedResults = this.#performCountBy(results)
 
     return this.#performOrderBy(groupedResults)
   }
@@ -105,11 +105,11 @@ export class FluentSqlQueryBuilder {
     })
   }
 
-  #performGroupCount(results) {
-    if (!this.#groupCount) return results
+  #performCountBy(results) {
+    if (!this.#countBy) return results
 
     const groupedResults = results.reduce((acc, result) => {
-      const itemCategory = result[this.#groupCount]
+      const itemCategory = result[this.#countBy]
 
       acc[itemCategory] = acc[itemCategory] ?? 0
       
