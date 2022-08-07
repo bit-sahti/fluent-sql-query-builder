@@ -136,24 +136,23 @@ describe('', () => {
   })
 
   it('#pipeline - should be able to chain the methods', () => {
-    const result = FluentSqlQueryBuilder
-      .for(database)
-      .where({ name: /a/})
+    const result = FluentSqlQueryBuilder.for(database)
+      .where({ name: /a/ })
       .select(['name', 'id'])
       .orderBy(['id', 'desc'])
       .build()
 
-      const expected = [
-        {
-          id: 3,
-          name: 'mario'
-        },
-        {
-          id: 1,
-          name: 'samantha'
-        }
-      ]
+    const expected = [
+      {
+        id: 3,
+        name: 'mario'
+      },
+      {
+        id: 1,
+        name: 'samantha'
+      }
+    ]
 
-      expect(result).toStrictEqual(expected)
+    expect(result).toStrictEqual(expected)
   })
 })

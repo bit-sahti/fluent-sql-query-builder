@@ -82,13 +82,15 @@ export class FluentSqlQueryBuilder {
   #performOrderBy(results) {
     const [field, order] = this.#orderBy
 
-    if (!field || !results.some(item => item.hasOwnProperty(field))) return results
-    
+    if (!field || !results.some(item => item.hasOwnProperty(field)))
+      return results
+
     return results.sort((previous, next) => {
       const comparisonBase = order === 'desc' ? next[field] : previous[field]
       const comparedElement = order === 'desc' ? previous[field] : next[field]
-      
-      if (typeof comparisonBase === 'number') return comparisonBase - comparedElement
+
+      if (typeof comparisonBase === 'number')
+        return comparisonBase - comparedElement
 
       return comparisonBase.localeCompare(comparedElement)
     })
