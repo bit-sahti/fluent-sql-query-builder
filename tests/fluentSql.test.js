@@ -135,6 +135,19 @@ describe('', () => {
     expect(result).toStrictEqual(expected)
   })
 
+  it('#groupCount  - should group and count results by specified field', () => {
+    const result = FluentSqlQueryBuilder.for(database).groupCount('category').build()
+
+    const expected = [
+      {
+        developer: 2,
+        manager: 1
+      }
+    ]
+
+    expect(result).toStrictEqual(expected)
+  })
+
   it('#pipeline - should be able to chain the methods', () => {
     const result = FluentSqlQueryBuilder.for(database)
       .where({ name: /a/ })

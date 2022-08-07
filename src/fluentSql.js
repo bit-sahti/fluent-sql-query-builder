@@ -4,6 +4,7 @@ export class FluentSqlQueryBuilder {
   #select = []
   #where = []
   #orderBy = []
+  #groupCount = ''
 
   constructor({ database }) {
     this.#database = database
@@ -41,6 +42,12 @@ export class FluentSqlQueryBuilder {
     return this
   }
 
+  groupCount(field) {
+    this.#groupCount = field
+
+    return this
+  }
+
   build() {
     const results = []
 
@@ -54,7 +61,9 @@ export class FluentSqlQueryBuilder {
       if (this.#limit && results.length === this.#limit) break
     }
 
-    return this.#performOrderBy(results)
+    const groupedResults = this.#performGroupCount(results)
+
+    return this.#performOrderBy(groupedResults)
   }
 
   #performWhere(item) {
@@ -94,5 +103,21 @@ export class FluentSqlQueryBuilder {
 
       return comparisonBase.localeCompare(comparedElement)
     })
+  }
+
+  #performGroupCount(results) {
+    if (!this.#groupCount) return results
+
+    const groupedResults = results.reduce((acc, result) => {
+      const itemCategory = result[this.#groupCount]
+
+      acc[itemCategory] = acc[itemCategory] ?? 0
+      
+      acc[itemCategory]++
+
+      return acc
+    }, {})
+
+    return [groupedResults]
   }
 }
